@@ -14,6 +14,8 @@ struct Person
 //required in order to put Persons into an order collection (like a BTreeSet).
 impl Ord for Person 
 {
+
+    //This will order persons by their name only.
     fn cmp(&self, other: &Person) -> Ordering 
     {
         self.name.cmp(&other.name)
@@ -43,6 +45,16 @@ fn main()
     let mut people = BTreeSet::new();
 
     let mut person1 = Person {name: "Tyler Norbury", age: 20};
+    let mut person2 = Person {name: "Dylan Norbury", age: 17};
+    let mut person3 = Person {name: "Hudson Norbury", age: 5};
+
 
     people.insert(person1);
+    people.insert(person2);
+    people.insert(person3);
+
+    for dude in people.iter() 
+    {
+        println!("{}", dude.name);
+    }
 }
