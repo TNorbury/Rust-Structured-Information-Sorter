@@ -1,5 +1,9 @@
+use std::io;
+use std::io::prelude::*;
 use std::collections::BTreeSet;
 use std::cmp::Ordering;
+use std::io::BufReader;
+use std::fs::File;
 
 
 #[derive(Eq)]
@@ -43,6 +47,12 @@ fn main()
     //Create a BTreeSet (this will ensure that the collection is ordered)
     //that will contain all the people.
     let mut people = BTreeSet::new();
+
+    //Get the file from the command line and try to open it.
+    let fileLocation: String = std::env::args().nth(1).unwrap();
+    let personFile: File = File::open(std::env::args().nth(1).unwrap())
+        .unwrap();
+    
 
     let mut person1 = Person {name: "Tyler Norbury", age: 20};
     let mut person2 = Person {name: "Dylan Norbury", age: 17};
