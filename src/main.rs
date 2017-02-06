@@ -53,8 +53,8 @@ fn main()
     people.insert(person2);
     people.insert(person3);
 
-    for dude in people.iter() 
+    for person in people.iter() 
     {
-        println!("{}", dude.name);
+        println!("{}", person.name);
     }
 }
