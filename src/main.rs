@@ -9,7 +9,7 @@ use std::fs::File;
 #[derive(Eq)]
 struct Person 
 {
-    name: &'static str,
+    name: String,
     age: u8, //Assuming people won't be older than 255 or have a negative age.
 }
 
@@ -47,24 +47,35 @@ fn main()
     //Create a BTreeSet (this will ensure that the collection is ordered)
     //that will contain all the people.
     let mut people = BTreeSet::new();
+    let mut fileLine;
 
     //Get the file from the command line and try to open it.
     let fileLocation: String = std::env::args().nth(1).unwrap();
     let personFile: File = File::open(std::env::args().nth(1).unwrap())
         .unwrap();
     
+    //Create a reader that will read the file
+    let fileReader = BufReader::new(personFile);
 
-    let mut person1 = Person {name: "Tyler Norbury", age: 20};
-    let mut person2 = Person {name: "Dylan Norbury", age: 17};
-    let mut person3 = Person {name: "Hudson Norbury", age: 5};
-
-
-    people.insert(person1);
-    people.insert(person2);
-    people.insert(person3);
-
-    for person in people.iter() 
+    //Iterate through the lines in the file
+    for line in fileReader.lines()
     {
-        println!("{}", person.name);
+
+        //Have to use the fileLine vriable to unwrap the line, otherwise the
+        //program won't compile.
+        fileLine = line.unwrap();
+
+        //Create an iterator over the tokens on the line.
+        let mut lineIter = fileLine.split(",");
+
+        //Insert a new person structer into the B-Tree Set.
+        people.insert(Person {
+                name: lineIter.next().unwrap().to_string(),
+                age: lineIter.next().unwrap().trim().parse()
+                       .expect("The age of a person must be a positive number")
+            }
+        );
     }
+
+
 }
