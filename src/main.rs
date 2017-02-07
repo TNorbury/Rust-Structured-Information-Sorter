@@ -77,5 +77,9 @@ fn main()
         );
     }
 
+    //Iterate through the B-Tree and print out all of the names.
+    for person in people.iter() {
+        println!("{}", person.name);
+    }
 
 }
