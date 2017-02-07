@@ -7,7 +7,7 @@ use std::fs::File;
 struct Person 
 {
     name: String,
-    age: usize, //Make age of usize type for consitency with functions such as len
+    age: usize, //Make age of type usize for consitency with functions such as len
 }
 
 
