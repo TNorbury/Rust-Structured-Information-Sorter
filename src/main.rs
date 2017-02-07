@@ -12,14 +12,12 @@ struct Person
 
 fn main() 
 {
-    //Create a BTreeSet (this will ensure that the collection is ordered)
-    //that will contain all the people.
+    //Create a vector that will contain all the people.
     let mut people = Vec::new();
     let mut fileLine;
     let mut ageSum: usize = 0;
 
     //Get the file from the command line and try to open it.
-    let fileLocation: String = std::env::args().nth(1).unwrap();
     let personFile: File = File::open(std::env::args().nth(1).unwrap())
         .unwrap();
     
@@ -30,14 +28,14 @@ fn main()
     for line in fileReader.lines()
     {
 
-        //Have to use the fileLine vriable to unwrap the line, otherwise the
+        //Have to use the fileLine variable to unwrap the line, otherwise the
         //program won't compile.
         fileLine = line.unwrap();
 
-        //Create an iterator over the tokens on the line.
+        //Split each line on ',' and create an iterator for the other tokens.
         let mut lineIter = fileLine.split(",");
 
-        //Insert a new person structer into the people vector.
+        //Insert a new person structe into the people vector.
         people.insert(0, Person {
                 name: lineIter.next().unwrap().to_string(),
                 age: lineIter.next().unwrap().trim().parse()
@@ -46,7 +44,7 @@ fn main()
         );
     }
 
-    //Order the vector based on the names of people
+    //Order the vector based on the names of people.
     people.sort_by(|a, b| a.name.cmp(&b.name));
 
     //Iterate through the B-Tree and print out all of the names.
@@ -61,5 +59,4 @@ fn main()
 
     //Print out the average age.
     println!("Average Age: {}", (ageSum/people.len()));
-
 }
