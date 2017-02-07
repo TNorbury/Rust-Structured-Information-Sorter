@@ -10,6 +10,7 @@ struct Person
     age: usize, //Make age of usize type for consitency with functions such as len
 }
 
+
 fn main() 
 {
     //Create a vector that will contain all the people.
